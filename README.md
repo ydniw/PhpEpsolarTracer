@@ -5,7 +5,7 @@ Library for communicating with Epsolar/Epever Tracer BN MPPT Solar Charger Contr
 
 Features
 -------
-This library connects via RS485 port to the widely known Epsolar/Epever Tracer BN Series MPPT solar charger controller (like mine Tracer 2215 BN) allowing users to get data such as Battery Voltage, Load Current, Panel Power and base on the Tracer [protocol] (Modbus).
+This library connects via RS485 port to the widely known Epsolar/Epever Tracer BN Series MPPT solar charger controller (like mine Tracer 2215 BN) allowing users to get data such as Battery Voltage, Load Current, Panel Power and base on the [Tracer protocol] [protocol] (Modbus).
 In order to get it to work you just need tu use a cheap USB/RS485 converter and connect one side to your PC/Raspberry USB port and the other to the solar charger's connector.
 
 Class methods and properties
