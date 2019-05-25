@@ -94,7 +94,7 @@ class PhpSerialModbus
 	}
 	
 	public function sendRawQuery ($string, $response = true) {
-		$this->serial->sendMessage($string);
+		$this->serial->sendMessage($string, 0.5);
 		if ($this->debug) print "DEBUG [query sent]: ".$this->bin2hexString($string)."\n";
 		if ($response) return $this->getResponse(); else return 1;		
 	}
@@ -127,7 +127,7 @@ class PhpSerialModbus
 		if ($this->debug) print "DEBUG [query sent]: ".$this->bin2hexString($queryString)."\n";
 		
 		// Send over serial port
-		$this->serial->sendMessage($queryString);
+		$this->serial->sendMessage($queryString, 0.5);
 		
 		if ($response) return $this->getResponse(); else return 1;
 	}
