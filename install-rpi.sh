@@ -19,4 +19,4 @@ sudo apt-get install php-curl
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 composer require influxdb/influxdb-php
 
-crontab -l | { cat; echo "0 0 0 0 0 php /home/pi/PhpEpsolarTracer/logger.php"; } | crontab -
+crontab -l | { cat; echo "* * * * * php /home/pi/PhpEpsolarTracer/logger.php"; } | crontab -
