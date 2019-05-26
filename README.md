@@ -3,7 +3,7 @@ Php EpSolar Tracer Class
 
 Library for communicating with Epsolar/Epever Tracer BN MPPT Solar Charger Controller
 
-**This version customised for RPi Zero W -- (windyhen@outlook.com)**
+**This version customised for RPi Zero W**
 
 Install
 -------
