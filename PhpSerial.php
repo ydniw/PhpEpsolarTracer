@@ -1,7 +1,7 @@
 <?php
-define ("SERIAL_DEVICE_NOTSET", 0);
-define ("SERIAL_DEVICE_SET", 1);
-define ("SERIAL_DEVICE_OPENED", 2);
+define("SERIAL_DEVICE_NOTSET", 0);
+define("SERIAL_DEVICE_SET", 1);
+define("SERIAL_DEVICE_OPENED", 2);
 
 /**
  * Serial port control class
@@ -63,7 +63,7 @@ class PhpSerial
             register_shutdown_function(array($this, "deviceClose"));
         } else {
             trigger_error("Host OS is neither osx, linux nor windows, unable " .
-                          "to run.", E_USER_ERROR);
+                "to run.", E_USER_ERROR);
             exit();
         }
     }
@@ -104,10 +104,11 @@ class PhpSerial
                     return true;
                 }
             } elseif ($this->_os === "windows") {
-                if (preg_match("@^COM(\\d+):?$@i", $device, $matches)
-                        and $this->_exec(
-                            exec("mode " . $device . " xon=on BAUD=9600")
-                        ) === 0
+                if (
+                    preg_match("@^COM(\\d+):?$@i", $device, $matches)
+                    and $this->_exec(
+                        exec("mode " . $device . " xon=on BAUD=9600")
+                    ) === 0
                 ) {
                     $this->_winDevice = "COM" . $matches[1];
                     $this->_device = "\\.com" . $matches[1];
@@ -122,7 +123,7 @@ class PhpSerial
             return false;
         } else {
             trigger_error("You must close your device before to set an other " .
-                          "one", E_USER_WARNING);
+                "one", E_USER_WARNING);
 
             return false;
         }
@@ -153,7 +154,7 @@ class PhpSerial
 
         if (!preg_match("@^[raw]\\+?b?$@", $mode)) {
             trigger_error(
-                "Invalid opening mode : ".$mode.". Use fopen() modes.",
+                "Invalid opening mode : " . $mode . ". Use fopen() modes.",
                 E_USER_WARNING
             );
 
@@ -218,12 +219,12 @@ class PhpSerial
     {
         if ($this->_dState !== SERIAL_DEVICE_SET) {
             trigger_error("Unable to set the baud rate : the device is " .
-                          "either not set or opened", E_USER_WARNING);
+                "either not set or opened", E_USER_WARNING);
 
             return false;
         }
 
-        $validBauds = array (
+        $validBauds = array(
             110    => 11,
             150    => 15,
             300    => 30,
@@ -241,12 +242,12 @@ class PhpSerial
         if (isset($validBauds[$rate])) {
             if ($this->_os === "linux") {
                 $ret = $this->_exec(
-                    "stty -F " . $this->_device . " " . (int) $rate,
+                    "stty -F " . $this->_device . " " . (int)$rate,
                     $out
                 );
             } elseif ($this->_os === "osx") {
                 $ret = $this->_exec(
-                    "stty -f " . $this->_device . " " . (int) $rate,
+                    "stty -f " . $this->_device . " " . (int)$rate,
                     $out
                 );
             } elseif ($this->_os === "windows") {
@@ -315,7 +316,8 @@ class PhpSerial
             );
         } else {
             $ret = $this->_exec(
-                "mode " . $this->_winDevice . " PARITY=" . $parity{0},
+                "mode " . $this->_winDevice . " PARITY=" . $parity{
+                0},
                 $out
             );
         }
@@ -339,12 +341,12 @@ class PhpSerial
     {
         if ($this->_dState !== SERIAL_DEVICE_SET) {
             trigger_error("Unable to set length of a character : the device " .
-                          "is either not set or opened", E_USER_WARNING);
+                "is either not set or opened", E_USER_WARNING);
 
             return false;
         }
 
-        $int = (int) $int;
+        $int = (int)$int;
         if ($int < 5) {
             $int = 5;
         } elseif ($int > 8) {
@@ -373,7 +375,7 @@ class PhpSerial
         }
 
         trigger_error(
-            "Unable to set character length : " .$out[1],
+            "Unable to set character length : " . $out[1],
             E_USER_WARNING
         );
 
@@ -392,15 +394,16 @@ class PhpSerial
     {
         if ($this->_dState !== SERIAL_DEVICE_SET) {
             trigger_error("Unable to set the length of a stop bit : the " .
-                          "device is either not set or opened", E_USER_WARNING);
+                "device is either not set or opened", E_USER_WARNING);
 
             return false;
         }
 
-        if ($length != 1
-                and $length != 2
-                and $length != 1.5
-                and !($length == 1.5 and $this->_os === "linux")
+        if (
+            $length != 1
+            and $length != 2
+            and $length != 1.5
+            and !($length == 1.5 and $this->_os === "linux")
         ) {
             trigger_error(
                 "Specified stop bit length is invalid",
@@ -412,14 +415,12 @@ class PhpSerial
 
         if ($this->_os === "linux") {
             $ret = $this->_exec(
-                "stty -F " . $this->_device . " " .
-                    (($length == 1) ? "-" : "") . "cstopb",
+                "stty -F " . $this->_device . " " . (($length == 1) ? "-" : "") . "cstopb",
                 $out
             );
         } elseif ($this->_os === "osx") {
             $ret = $this->_exec(
-                "stty -f " . $this->_device . " " .
-                    (($length == 1) ? "-" : "") . "cstopb",
+                "stty -f " . $this->_device . " " . (($length == 1) ? "-" : "") . "cstopb",
                 $out
             );
         } else {
@@ -454,7 +455,7 @@ class PhpSerial
     {
         if ($this->_dState !== SERIAL_DEVICE_SET) {
             trigger_error("Unable to set flow control mode : the device is " .
-                          "either not set or opened", E_USER_WARNING);
+                "either not set or opened", E_USER_WARNING);
 
             return false;
         }
@@ -525,11 +526,13 @@ class PhpSerial
             "setserial " . $this->_device . " " . $param . " " . $arg . " 2>&1"
         );
 
-        if ($return{0} === "I") {
+        if ($return{
+        0} === "I") {
             trigger_error("setserial: Invalid flag", E_USER_WARNING);
 
             return false;
-        } elseif ($return{0} === "/") {
+        } elseif ($return{
+        0} === "/") {
             trigger_error("setserial: Error with device file", E_USER_WARNING);
 
             return false;
@@ -560,7 +563,7 @@ class PhpSerial
             $this->serialflush();
         }
 
-        usleep((int) ($waitForReply * 1000000));
+        usleep((int)($waitForReply * 1000000));
     }
 
     /**
@@ -582,7 +585,8 @@ class PhpSerial
             // Behavior in OSX isn't to wait for new data to recover, but just
             // grabs what's there!
             // Doesn't always work perfectly for me in OSX
-            $content = ""; $i = 0;
+            $content = "";
+            $i = 0;
 
             if ($count !== 0) {
                 do {
@@ -601,7 +605,8 @@ class PhpSerial
             return $content;
         } elseif ($this->_os === "windows") {
             // Windows port reading procedures still buggy
-            $content = ""; $i = 0;
+            $content = "";
+            $i = 0;
 
             if ($count !== 0) {
                 do {

@@ -3,6 +3,12 @@ Php EpSolar Tracer Class
 
 Library for communicating with Epsolar/Epever Tracer BN MPPT Solar Charger Controller
 
+**This version customised for RPi Zero W -- (windyhen@outlook.com)**
+
+Install
+-------
+>Run install-rpi.sh and change $db_name as per database name created in InfluxDB
+
 Features
 -------
 This library connects via RS485 port to the widely known Epsolar/Epever Tracer BN Series MPPT solar charger controller (like mine Tracer 2215 BN) allowing users to get data such as Battery Voltage, Load Current, Panel Power and base on the [Tracer protocol] [protocol] (Modbus).
